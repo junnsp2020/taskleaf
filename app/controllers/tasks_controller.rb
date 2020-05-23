@@ -35,6 +35,11 @@ class TasksController < ApplicationController
   	redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました"
   end
 
+  def confirm_new
+  	@task = current_user.tasks.new(task_params)
+  	render :new unless @task.valid?
+  end
+
   private
 
   def task_params
@@ -44,4 +49,5 @@ class TasksController < ApplicationController
   def set_task
   	@task = current_user.tasks.find(params[:id])
   end
+
 end
